@@ -1,0 +1,10 @@
+{"1.1.0",
+[{<<"base64url">>,{pkg,<<"base64url">>,<<"0.0.1">>},1},
+ {<<"jose">>,{pkg,<<"jose">>,<<"1.8.0">>},0},
+ {<<"ojson">>,{pkg,<<"ojson">>,<<"1.0.0">>},0}]}.
+[
+{pkg_hash,[
+ {<<"base64url">>, <<"36A90125F5948E3AFD7BE97662A1504B934DD5DAC78451CA6E9ABF85A10286BE">>},
+ {<<"jose">>, <<"1EE027C5C0FF3922E3BFE58F7891509E8F87F771BA609EE859E623CC60237574">>},
+ {<<"ojson">>, <<"FD28614EADAEC00A15CDB2F53F29D8717A812A508DDB80D202F2F2E2AAEABBCC">>}]}
+].
