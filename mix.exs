@@ -38,6 +38,7 @@ defmodule IAM.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps() do
     [
+      {:ex_doc, ">= 0.0.0", only: :dev},
       {:jose, "~> 1.8"},
       {:ojson, "~> 1.0"},
       {:propcheck, "~> 1.0", only: :test}
