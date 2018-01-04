@@ -17,7 +17,7 @@
 ERLANG_MK_FILENAME := $(realpath $(lastword $(MAKEFILE_LIST)))
 export ERLANG_MK_FILENAME
 
-ERLANG_MK_VERSION = 2017.08.28-19-g8e3d863
+ERLANG_MK_VERSION = 2017.08.28-22-gf545564
 ERLANG_MK_WITHOUT = 
 
 # Make 3.81 and 3.82 are deprecated.
@@ -616,14 +616,6 @@ pkg_cl_fetch = git
 pkg_cl_repo = https://github.com/tonyrog/cl
 pkg_cl_commit = master
 
-PACKAGES += classifier
-pkg_classifier_name = classifier
-pkg_classifier_description = An Erlang Bayesian Filter and Text Classifier
-pkg_classifier_homepage = https://github.com/inaka/classifier
-pkg_classifier_fetch = git
-pkg_classifier_repo = https://github.com/inaka/classifier
-pkg_classifier_commit = master
-
 PACKAGES += clique
 pkg_clique_name = clique
 pkg_clique_description = CLI Framework for Erlang
@@ -1023,14 +1015,6 @@ pkg_dnssd_homepage = https://github.com/benoitc/dnssd_erlang
 pkg_dnssd_fetch = git
 pkg_dnssd_repo = https://github.com/benoitc/dnssd_erlang
 pkg_dnssd_commit = master
-
-PACKAGES += dtl
-pkg_dtl_name = dtl
-pkg_dtl_description = Django Template Language: A full-featured port of the Django template engine to Erlang.
-pkg_dtl_homepage = https://github.com/oinksoft/dtl
-pkg_dtl_fetch = git
-pkg_dtl_repo = https://github.com/oinksoft/dtl
-pkg_dtl_commit = master
 
 PACKAGES += dynamic_compile
 pkg_dynamic_compile_name = dynamic_compile
@@ -2000,14 +1984,6 @@ pkg_gold_fever_fetch = git
 pkg_gold_fever_repo = https://github.com/inaka/gold_fever
 pkg_gold_fever_commit = master
 
-PACKAGES += gossiperl
-pkg_gossiperl_name = gossiperl
-pkg_gossiperl_description = Gossip middleware in Erlang
-pkg_gossiperl_homepage = http://gossiperl.com/
-pkg_gossiperl_fetch = git
-pkg_gossiperl_repo = https://github.com/gossiperl/gossiperl
-pkg_gossiperl_commit = master
-
 PACKAGES += gpb
 pkg_gpb_name = gpb
 pkg_gpb_description = A Google Protobuf implementation for Erlang
@@ -2031,6 +2007,22 @@ pkg_grapherl_homepage = https://github.com/eproxus/grapherl
 pkg_grapherl_fetch = git
 pkg_grapherl_repo = https://github.com/eproxus/grapherl
 pkg_grapherl_commit = master
+
+PACKAGES += grpc
+pkg_grpc_name = grpc
+pkg_grpc_description = gRPC server in Erlang
+pkg_grpc_homepage = https://github.com/Bluehouse-Technology/grpc
+pkg_grpc_fetch = git
+pkg_grpc_repo = https://github.com/Bluehouse-Technology/grpc
+pkg_grpc_commit = master
+
+PACKAGES += grpc_client
+pkg_grpc_client_name = grpc_client
+pkg_grpc_client_description = gRPC client in Erlang
+pkg_grpc_client_homepage = https://github.com/Bluehouse-Technology/grpc_client
+pkg_grpc_client_fetch = git
+pkg_grpc_client_repo = https://github.com/Bluehouse-Technology/grpc_client
+pkg_grpc_client_commit = master
 
 PACKAGES += gun
 pkg_gun_name = gun
