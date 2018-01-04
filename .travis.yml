@@ -4,3 +4,5 @@ elixir:
 otp_release:
   - 20.2
 sudo: false
+notifications:
+  email: false
