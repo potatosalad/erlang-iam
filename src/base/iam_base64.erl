@@ -9,6 +9,7 @@
 %%% Created :  11 May 2017 by Andrew Bennett <potatosaladx@gmail.com>
 %%%-------------------------------------------------------------------
 -module(iam_base64).
+-compile({parse_transform, iam_base}).
 
 -include("iam_base.hrl").
 
@@ -255,15 +256,21 @@ encode(Input) when ?is_iodata(Input) ->
 
 encode(Input, Opts) when ?is_iodata(Input) andalso is_map(Opts) ->
 	Padding = maps:get('padding', Opts, true),
-	Offset = 3 * (erlang:iolist_size(Input) div 3),
+	Offset = 6 * (erlang:iolist_size(Input) div 6),
 	<< Head:Offset/binary, Tail/binary >> = ?to_binary(Input),
-	H = << << (?INT_TO_B64(V)) >> || << V:6 >> <= Head >>,
+	H = << << (encode_pair(V0)):16, (encode_pair(V1)):16, (encode_pair(V2)):16, (encode_pair(V3)):16 >> || << V0:12, V1:12, V2:12, V3:12 >> <= Head >>,
 	{T, Pad} =
 		case Tail of
-			<< T0:6, T1:6, T2:4 >> ->
-				{<< ?INT_TO_B64(T0), ?INT_TO_B64(T1), ?INT_TO_B64(T2 bsl 2) >>, << $= >>};
-			<< T0:6, T1:2 >> ->
-				{<< ?INT_TO_B64(T0), ?INT_TO_B64(T1 bsl 4) >>, << $=, $= >>};
+			<< T0:12, T1:12, T2:12, T3:4 >> ->
+				{<< (encode_pair(T0)):16, (encode_pair(T1)):16, (encode_pair(T2)):16, (encode_char(T3 bsl 2)):8 >>, << $= >>};
+			<< T0:12, T1:12, T2:8 >> ->
+				{<< (encode_pair(T0)):16, (encode_pair(T1)):16, (encode_pair(T2 bsl 4)):16 >>, << $=, $= >>};
+			<< T0:12, T1:12 >> ->
+				{<< (encode_pair(T0)):16, (encode_pair(T1)):16 >>, <<>>};
+			<< T0:12, T1:4 >> ->
+				{<< (encode_pair(T0)):16, (encode_char(T1 bsl 2)):8 >>, <<>>};
+			<< T0:8 >> ->
+				{<< (encode_pair(T0 bsl 4)):16 >>, << $=, $= >>};
 			<<>> ->
 				{<<>>, <<>>}
 		end,
@@ -301,3 +308,15 @@ random(Bytes, Opts) when is_integer(Bytes) andalso Bytes > 0 andalso is_map(Opts
 	encode(Binary, Opts);
 random(Bytes, Opts) when is_integer(Bytes) andalso Bytes >= 0 andalso is_list(Opts) ->
 	random(Bytes, maps:from_list(Opts)).
+
+%%%-------------------------------------------------------------------
+%%% Internal functions
+%%%-------------------------------------------------------------------
+
+%% @private
+encode_char(V) ->
+	iam_base:encode_char(?INT_TO_B64(V)).
+
+%% @private
+encode_pair(V) ->
+	iam_base:encode_pair(?INT_TO_B64(V), sensitive).
